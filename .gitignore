@@ -1,0 +1,4 @@
+venv/
+ga4_key.json
+*.env
+__pycache__/
