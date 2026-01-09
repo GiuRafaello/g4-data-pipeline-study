@@ -1,0 +1,12 @@
+
+    
+    
+    truncate table "postgres"."public"."dados_excel";
+    -- dbt seed --
+    
+          insert into "postgres"."public"."dados_excel" ("data_evento;origem;canal;valor;fonte") values
+          (%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s),(%s)
+      
+
+;
+  

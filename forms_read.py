@@ -34,9 +34,21 @@ print(df)
 print("ANTES DO POSTGRES")
 
 # ========= POSTGRES =========
-conn = psycopg2.connect(
-    "postgresql://postgres.lowjtnpxijbngiyjlsyw:juanluce23074@aws-1-us-east-1.pooler.supabase.com:6543/postgres"
-)
+import psycopg2
+
+import os
+
+conn = psycopg2.connect( 
+    host=os.getenv("SUPABASE_DB_HOST"),
+    port=os.getenv("SUPABASE_DB_PORT"), 
+    database=os.getenv("SUPABASE_DB_NAME"), 
+    user=os.getenv("SUPABASE_DB_USER"), 
+    password=os.getenv("SUPABASE_DB_PASSWORD") )
+
+
+print("CONECTOU NO POSTGRES")
+
+cur = conn.cursor()
 
 print("CONECTOU NO POSTGRES")
 
