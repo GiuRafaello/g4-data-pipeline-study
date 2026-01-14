@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: forms_responses_bronze
+    description: "Dados brutos vindos do Google Forms via Supabase"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: forms_responses_silver
+    description: "Dados tratados e padronizados"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: forms_responses_gold
+    description: "Camada final para consumo analítico"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique

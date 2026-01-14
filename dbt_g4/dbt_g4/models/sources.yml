@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: forms
+    schema: public
+    tables:
+      - name: forms_responses
+        description: "Respostas brutas vindas do Google Forms"
+
+  - name: bronze
+    schema: public
+    tables:
+      - name: ga4_events_bronze
+        description: "Eventos GA4 carregados via Python"
+
