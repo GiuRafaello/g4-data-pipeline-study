@@ -4,4 +4,6 @@ ga4_key.json
 __pycache__/
 .env
 venv/
+dbt_g4/dbt_g4/credentials/
+
 
