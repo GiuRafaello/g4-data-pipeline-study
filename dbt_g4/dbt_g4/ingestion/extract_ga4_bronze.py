@@ -23,12 +23,15 @@ request = RunReportRequest(
     dimensions=[
         Dimension(name="eventName"),
         Dimension(name="date"),
+        Dimension(name="platform"),
+        Dimension(name="country"),
     ],
     metrics=[
         Metric(name="eventCount"),
     ],
-    date_ranges=[DateRange(start_date="30daysAgo", end_date="today")]
-,
+    date_ranges=[
+        DateRange(start_date="30daysAgo", end_date="today")
+    ],
 )
 
 response = client.run_report(request)
@@ -42,6 +45,8 @@ for row in response.rows:
     rows.append({
         "event_name": row.dimension_values[0].value,
         "date": row.dimension_values[1].value,
+        "platform": row.dimension_values[2].value,
+        "country": row.dimension_values[3].value,
         "event_count": int(row.metric_values[0].value),
     })
 
@@ -58,11 +63,12 @@ print(df.head())
 df.to_sql(
     "ga4_events_bronze",
     engine,
-    if_exists="replace",
+    if_exists="append",
     index=False,
     schema="public"
 )
 
 print("OK - GA4 BRONZE CARREGADO")
+
 
 

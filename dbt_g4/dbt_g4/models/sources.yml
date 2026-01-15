@@ -13,3 +13,7 @@ sources:
       - name: ga4_events_bronze
         description: "Eventos GA4 carregados via Python"
 
+      - name: g4_excel_bronze
+        description: "Dados CSV do OneDrive (pasta G4)"
+
+

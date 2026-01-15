@@ -1,6 +1,10 @@
+{{ config(materialized='view') }}
+
 select
     event_name,
-    date,
-    sum(event_count) as event_count
+    to_date(date, 'YYYYMMDD') as event_date,
+    platform,
+    nullif(country, '(not set)') as country,
+    event_count
 from {{ source('bronze', 'ga4_events_bronze') }}
-group by event_name, date
+
