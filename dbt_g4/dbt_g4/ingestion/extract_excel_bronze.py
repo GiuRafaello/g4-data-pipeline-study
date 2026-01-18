@@ -1,49 +1,34 @@
 import pandas as pd
-from sqlalchemy import create_engine, text
+from pathlib import Path
 
-# ======================
-# CONFIG
-# ======================
-CSV_PATH = r"C:\Users\giu_r\OneDrive\Área de Trabalho\G4\dbt_g4\dados_excel.csv"
-
-DATABASE_URL = (
-    "postgresql://postgres.dfrdrbqecpdztxjmednz:"
-    "giuluce2307@aws-0-us-west-2.pooler.supabase.com:5432/postgres"
+# Caminho absoluto do CSV
+CSV_PATH = Path(
+    r"C:\Users\giu_r\OneDrive\Área de Trabalho\G4\dbt_g4\dados_excel.csv"
 )
 
-# ======================
-# EXTRACT
-# ======================
+# Leitura correta do CSV (separador brasileiro)
 df = pd.read_csv(
     CSV_PATH,
-    sep=",",
-    parse_dates=["data_evento"],
-    dayfirst=True
+    sep=";",
+    encoding="utf-8"
 )
 
 # Padroniza nomes das colunas
-df.columns = df.columns.str.lower()
+df.columns = df.columns.str.strip().str.lower()
 
-print("TOTAL DE LINHAS:", len(df))
+# Converte a coluna de data manualmente (forma correta)
+df["data_evento"] = pd.to_datetime(
+    df["data_evento"],
+    dayfirst=True,
+    errors="raise"
+)
+
+# (Opcional) Garantir tipo numérico
+df["valor"] = pd.to_numeric(df["valor"], errors="raise")
+
+# Log simples para conferência
+print("Arquivo lido com sucesso")
 print(df.head())
+print(df.dtypes)
 
-# ======================
-# LOAD → BRONZE
-# ======================
-engine = create_engine(DATABASE_URL)
-
-with engine.begin() as conn:
-    # Limpa tabela bronze
-    conn.execute(text("truncate table public.g4_excel_bronze;"))
-
-    # Insere dados
-    df.to_sql(
-        "g4_excel_bronze",
-        conn,
-        schema="public",
-        if_exists="append",
-        index=False
-    )
-
-print("✅ OK - EXCEL BRONZE CARREGADO")
 
