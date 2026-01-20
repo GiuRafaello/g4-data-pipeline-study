@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: excel_events_silver
+    description: "Eventos vindos do CSV do OneDrive"
+    columns:
+      - name: data_evento
+        tests:
+          - not_null
+
+      - name: valor
+        tests:
+          - not_null
+
+  - name: ga4_events_silver
+    description: "Eventos do Google Analytics 4 tratados"
+    columns:
+      - name: event_date
+        tests:
+          - not_null
+
+      - name: event_name
+        tests:
+          - not_null
+
+      - name: event_count
+        tests:
+          - not_null
+

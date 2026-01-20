@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: engagement_daily_consolidated
+    description: >
+      Tabela fato diária de engajamento consolidando múltiplas fontes
+      (GA4 e Excel). Cada linha representa o total de engajamento por
+      data e origem, pronta para consumo em ferramentas de BI como
+      Power BI ou Looker.
+
+    columns:
+      - name: date
+        description: Data do evento (nível diário).
+        tests:
+          - not_null
+
+      - name: source
+        description: Fonte de origem do dado (ex: ga4, excel).
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['ga4', 'excel']
+
+      - name: engagement_total
+        description: Total de engajamento agregado para a data e fonte.
+        tests:
+          - not_null

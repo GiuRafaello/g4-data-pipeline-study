@@ -16,4 +16,8 @@ sources:
       - name: g4_excel_bronze
         description: "Dados CSV do OneDrive (pasta G4)"
 
+      - name: excel_events_bronze
+        description: "Eventos vindos de arquivo Excel"
+
+
 

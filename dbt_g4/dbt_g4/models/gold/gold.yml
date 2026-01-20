@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: excel_events_gold
+    description: "Camada Gold dos dados do Excel (G4)"
+    columns:
+      - name: data_evento
+        tests:
+          - not_null
+
+      - name: valor
+        tests:
+          - not_null
